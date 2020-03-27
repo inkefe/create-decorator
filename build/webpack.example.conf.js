@@ -6,6 +6,7 @@ const baseConfig = require('./webpack.base.conf')
 
 module.exports = merge(baseConfig, {
   mode: 'development',
+  devtool: 'cheap-module-source-map',
   entry: {
     index: path.join(__dirname, '../examples/index.js'),
     es5: path.join(__dirname, '../examples/es5.js'),
@@ -44,7 +45,7 @@ module.exports = merge(baseConfig, {
   resolve: {
     alias: {
       // 'ik-bridgex': path.resolve(__dirname, '../index.js'),
-      'base-module-template': path.resolve(__dirname, '../src'),
+      'create-decorator': path.resolve(__dirname, '../src'),
     }
   },
   devServer: {

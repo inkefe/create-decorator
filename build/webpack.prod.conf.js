@@ -3,7 +3,7 @@ const merge = require('webpack-merge')
 const baseConfig = require('./webpack.base.conf')
 
 const isProd = process.env.NODE_ENV === 'production';
-const filename = isProd ? 'base-module-template.production.min.js' : 'base-module-template.development.js';
+const filename = isProd ? 'create-decorator.production.min.js' : 'create-decorator.development.js';
 
 module.exports = merge(baseConfig, {
   entry: './src/index.js',
@@ -11,7 +11,7 @@ module.exports = merge(baseConfig, {
   output: {
     filename,
     path: path.resolve('./lib'),
-    library: 'base-module-template',
+    library: 'create-decorator',
     libraryTarget: 'umd'
   },
   devtool: 'source-map',

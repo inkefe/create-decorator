@@ -1,5 +1,5 @@
 if (process.env.NODE_ENV === 'production') {
-  module.exports = require('./lib/base-module-template.production.min.js');
+  module.exports = require('./lib/create-decorator.production.min.js');
 } else {
-  module.exports = require('./lib/base-module-template.development.js');
+  module.exports = require('./lib/create-decorator.development.js');
 }
