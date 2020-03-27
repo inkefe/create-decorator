@@ -46,6 +46,9 @@ npm install @inkefe/create-decorator -S
 **第一步: 创建装饰器**
 
 ```js
+import createDecorator from '@inkefe/create-decorator'
+import lodash from 'lodash'
+
 const xxxDecorator = createDecorator(fn => (...args) => xxx, ...firstArgs)
 
 // 与第三方高阶函数结合
@@ -57,6 +60,10 @@ const xxxDecorator = createDecorator(lodash.throlled, 300)
 1. 普通函数结合
 
 ```js
+import { compose } from 'redux'
+
+const fn = () => { console.log('具体的业务函数') }
+
 // 已创建的装饰器, 继续可以当做之前的高阶函数使用, 对fn进行装饰, 也支持compose
 const fnProxy = xxxDecorator(fn)
 
@@ -118,4 +125,4 @@ npm run publish:major
 
 会将代码发布到npm中[inkefe](https://www.npmjs.com/settings/inkefe/packages)组下, 如果没有权限请联系`李宝旭`or`leader`开通npm组权限
 
-9. 在[CHANGELOG.md]('./CHANGELOG.md)中维护修改内容
+9. 在[CHANGELOG.md](./CHANGELOG.md)中维护修改内容
