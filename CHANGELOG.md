@@ -11,6 +11,7 @@
   - 将`@babel/runtime`设置为`dependencies`, 因为构建到lib目录的commonjs会依赖其中的模块, 并不会将具体代码构建进去, 这样可以减少上层业务中的构建体积
 
 ### Fixed
+  - 构建`commonjs`文件时, 使用`transform-define`, 将全局变量`__VERSION__`进行替换, 否则会报错: *__VERSION__ is not defined*
 
 ## 0.1.0
 
@@ -22,4 +23,3 @@
   - 项目初始化
 
 ### Fixed
-  - 构建`commonjs`文件时, 使用`transform-define`, 将全局变量`__VERSION__`进行替换, 否则会报错: *__VERSION__ is not defined*
