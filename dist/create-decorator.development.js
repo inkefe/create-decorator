@@ -220,7 +220,7 @@ var createDecorator = function createDecorator(hocWrapper) {
 }; // eslint-disable-next-line no-undef
 
 
-var version = "0.1.2";
+var version = "0.1.3";
 createDecorator.version = version;
 
 /* harmony default export */ __webpack_exports__["default"] = (createDecorator);
