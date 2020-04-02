@@ -43,8 +43,7 @@ module.exports = merge(baseConfig, {
   ],
   resolve: {
     alias: {
-      // 'ik-bridgex': path.resolve(__dirname, '../index.js'),
-      'base-module-template': path.resolve(__dirname, '../src'),
+      'base-module-template': path.resolve(__dirname, '../src/index.js'),
     }
   },
   devServer: {
