@@ -22,3 +22,4 @@
   - 项目初始化
 
 ### Fixed
+  - 构建`commonjs`文件时, 使用`transform-define`, 将全局变量`__VERSION__`进行替换, 否则会报错: *__VERSION__ is not defined*
