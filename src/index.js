@@ -94,7 +94,6 @@ const createDecorator = function (hocWrapper, ...args) {
   }
 }
 
-
 // eslint-disable-next-line no-undef
 const version = __VERSION__
 
