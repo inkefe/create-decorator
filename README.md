@@ -27,17 +27,17 @@ class A {
 2. **那么`createDecorator`与`core-decorators`的`decorate`有什么区别?**
 
 - 支持箭头函数写法的装饰(decorate没实现), 并且内置了`绑定this`, 用起来更简洁
-- 双兼容, 即通过`createDecorator`创建的装饰器即可以对类进行装饰, 还可以保留继续对普通的函数进行包装的功能
+- 双兼容, 即: 通过`createDecorator`创建的装饰器即可以对类进行装饰, 还可以保留继续对普通的函数进行包装的功能
 
 综上: `createDecorator`是一个万能的`装饰器创造器`
 
 ## 安装
 
 ```sh
-# dependencies
+# devDependencies
 npm install @inkefe/create-decorator -D
 
-# devDependencies
+# dependencies
 npm install @inkefe/create-decorator -S
 ```
 
@@ -46,10 +46,14 @@ npm install @inkefe/create-decorator -S
 **第一步: 创建装饰器**
 
 ```js
-const xxxDecorator = createDecorator(fn => (...args) => xxx, ...firstArgs)
+import createDecorator from '@inkefe/create-decorator'
+import lodash from 'lodash'
+
+// 直接传入高阶函数进行创建
+const xxxDecorator = createDecorator(fn => (...args) => xxx, ...args)
 
 // 与第三方高阶函数结合
-const xxxDecorator = createDecorator(lodash.throlled, 300)
+const xxxDecorator = createDecorator(lodash.throttle, 300)
 ```
 
 **第二步使用装饰器**
@@ -57,9 +61,14 @@ const xxxDecorator = createDecorator(lodash.throlled, 300)
 1. 普通函数结合
 
 ```js
-// 已创建的装饰器, 继续可以当做之前的高阶函数使用, 对fn进行装饰, 也支持compose
+import { compose } from 'redux'
+
+const fn = () => { console.log('具体的业务函数') }
+
+// 已创建的装饰器, 继续可以当做之前的高阶函数使用, 对fn进行装饰
 const fnProxy = xxxDecorator(fn)
 
+// 也支持compose
 const fnProxyComposed = compose(xxxDecorator2, xxxDecorator1)(fn)
 ```
 
@@ -78,7 +87,7 @@ class A {
   static fn = () => {}
 
   // prototype下函数
-  @createDecorator(lodash.throttled, 300)
+  @createDecorator(lodash.throttle, 300)
   @xxxDecorator
   fn () {}
 
@@ -103,7 +112,7 @@ class A {
 npm run build
 ```
 
-会构建到lib目录下: `${module-name}.development.js` 和 `${module-name}.production.min.js`
+会构建到lib目录下: `create-decorator.development.js` 和 `create-decorator.production.min.js`
 
 8. 发布
 
@@ -120,4 +129,4 @@ npm run publish:major
 
 会将代码发布到npm中[inkefe](https://www.npmjs.com/settings/inkefe/packages)组下, 如果没有权限请联系`李宝旭`or`leader`开通npm组权限
 
-9. 在[CHANGELOG.md]('./CHANGELOG.md)中维护修改内容
+9. 在[CHANGELOG.md](./CHANGELOG.md)中维护修改内容
