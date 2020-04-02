@@ -44,7 +44,6 @@ module.exports = merge(baseConfig, {
   ],
   resolve: {
     alias: {
-      // 'ik-bridgex': path.resolve(__dirname, '../index.js'),
       'create-decorator': path.resolve(__dirname, '../src'),
     }
   },

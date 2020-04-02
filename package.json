@@ -4,6 +4,11 @@
   "description": "支持在高阶函数基础上直接创造一个es6装饰器, 并可以兼容箭头函数、静态函数、普通prototype函数, 可以说是万能装饰器",
   "main": "index.js",
   "author": "libaoxu",
+  "files": [
+    "dist",
+    "lib",
+    "src"
+  ],
   "scripts": {
     "example": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.example.conf.js --open",
     "build:dev": "cross-env NODE_ENV=development webpack --config build/webpack.prod.conf.js",
