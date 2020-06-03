@@ -66,6 +66,28 @@ class Chat {
   }
 }
 
+class Person {
+  constructor (name) {
+    this.name = name
+  }
+
+  @logDecorator
+  getNameArrow = () => {
+    console.log(this.name)
+  }
+
+  @logDecorator
+  getNameNormal () {
+    console.log(this.name)
+  }
+}
+
+const p1 = new Person('p1')
+p1.getNameArrow()
+p1.getNameNormal()
+const p2 = new Person('p2')
+p2.getNameArrow()
+p2.getNameArrow()
 
 const { extend, extendArrow } = Chat
 

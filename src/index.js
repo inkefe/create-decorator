@@ -1,4 +1,4 @@
-import { isObject } from './utils'
+import { isObject, createBaseMapStore } from './utils'
 
 /**
  * 创建装饰器, 所创建的装饰器支持普通函数、类prototype下面的函数、类prototype下面的箭头函数、类的静态函数的装饰, 而且能固定this;
@@ -48,7 +48,7 @@ const createDecorator = function (hocWrapper, ...args) {
     const originInitializer = descriptor.initializer
     const isGetter = !!originalGet
     const defaultSetter = newValue => (originalValue = newValue)
-    let wrappedFn
+    const store = createBaseMapStore()
 
     const desc = {
       configurable,
@@ -60,19 +60,21 @@ const createDecorator = function (hocWrapper, ...args) {
     // 所以这里将initializer 与 get set区分开
     if (typeof originInitializer === 'function') {
       desc.initializer = function initializer () {
-        if (!wrappedFn) {
+        if (!store.get(this)) {
           // 这边在编译时候, 将this传入作用域curry起来, 等于间接固定了this
           // 这个realMethod是类中的具体执行业务逻辑的函数
           const realMethod = originInitializer.call(this).bind(this)
           // 这个是通过高阶函数装饰之后的代理函数, 调用者调用的就是这个函数
-          wrappedFn = hocWrapper.call(this, realMethod, ...args)
+          store.set(this, hocWrapper.call(this, realMethod, ...args))
         }
+        const wrappedFn = store.get(this)
         return function realMethodCall (...nextArgs) {
           return wrappedFn.call(this, ...nextArgs)
         }
       }
     } else {
       desc.get = function get () {
+        const wrappedFn = store.get(this)
         if (wrappedFn) return wrappedFn
 
         let realMethod
@@ -84,8 +86,8 @@ const createDecorator = function (hocWrapper, ...args) {
           throw Error('[create-decorator]: descriptor\'s `value` or `get` property is not a function', descriptor)
         }
 
-        wrappedFn = hocWrapper.call(this, realMethod, ...args);
-        return wrappedFn
+        store.set(this, hocWrapper.call(this, realMethod, ...args))
+        return store.get(this)
       }
       desc.set = isGetter ? originalSet : defaultSetter
     }
