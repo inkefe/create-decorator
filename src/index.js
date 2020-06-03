@@ -1,5 +1,6 @@
-import { isObject, wrappedStore } from './utils'
+import { isObject, createCacheStore } from './utils'
 
+const wrappedStore = createCacheStore()
 /**
  * 创建装饰器, 所创建的装饰器支持普通函数、类prototype下面的函数、类prototype下面的箭头函数、类的静态函数的装饰, 而且能固定this;
  * 等于在`core-decorators`下的autoBind和decorate双装饰的功能基础上, 增加了静态函数, 箭头函数, 普通函数的装饰, 代码量更精简下, 满足更多场景
