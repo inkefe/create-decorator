@@ -50,7 +50,17 @@ import createDecorator from '@inkefe/create-decorator'
 import lodash from 'lodash'
 
 // 直接传入高阶函数进行创建
-const xxxDecorator = createDecorator(fn => (...args) => xxx, ...args)
+const xxxDecorator = createDecorator(fn => (...args) => {
+  // TODO: xxx before
+  let res;
+  try {
+    res = await fn(...args)
+  } catch(e) {
+    res = Promise.reject(e)
+  }
+  // TODO: xxx after
+  return res;
+}, ...args)
 
 // 与第三方高阶函数结合
 const xxxDecorator = createDecorator(lodash.throttle, 300)
